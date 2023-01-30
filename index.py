@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import time
 
 st.title('Concurso de bolsas 2023.1')
 
@@ -16,7 +15,6 @@ def info(conteudo):
 infoCandidato = {}
 
 def getInfo(*args):
-    time.sleep(2)
     tuple = args
     candidatoSelecionado = ''.join(tuple)
     candidato = df.loc[df['Nome candidato'] == candidatoSelecionado]
