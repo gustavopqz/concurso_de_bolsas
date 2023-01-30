@@ -1,5 +1,8 @@
 import streamlit as st
 import pandas as pd
+import time
+
+st.title('Concurso de bolsas 2023.1')
 
 df = pd.read_csv('resultado.csv',delimiter= ';')
 
@@ -10,7 +13,10 @@ def info(conteudo):
     for elem in conteudo:
         return elem
 
+infoCandidato = {}
+
 def getInfo(*args):
+    time.sleep(2)
     tuple = args
     candidatoSelecionado = ''.join(tuple)
     candidato = df.loc[df['Nome candidato'] == candidatoSelecionado]
@@ -28,23 +34,23 @@ def getInfo(*args):
     notaMinima = info(candidato['Nota Mínima'])
     avaliador = info(candidato['Avaliador'])
     dataCorrecao = info(candidato['Data correção'])
-
+ 
     infoCandidato = {
-        'Nome do candidato': nomeCandidato,
-        'Código do candidato': codCandidato,
-        'ID Avaliação': idAvaliacao,
-        'Avaliação': avaliacao,
-        'Curso': curso,
-        'Nota': nota,
-        'Nota mínima': notaMinima,
-        'Data de envio': dataEnvio,
-        'Data de correção': dataCorrecao,
-        'Avaliador': avaliador,
-        'Situação': situacao,
-        'Finalização': finalizacao
+        'Nome do candidato': [nomeCandidato],
+        'Código do candidato': [codCandidato],
+        'ID Avaliação': [idAvaliacao],
+        'Avaliação': [avaliacao],
+        'Curso': [curso],
+        'Nota': [nota],
+        'Nota mínima': [notaMinima],
+        'Data de envio': [dataEnvio],
+        'Data de correção': [dataCorrecao],
+        'Avaliador': [avaliador],
+        'Situação': [situacao],
+        'Finalização': [finalizacao]
     }
-
-    st.write(infoCandidato)
+    st.title(nomeCandidato)
+    st.table(pd.DataFrame.from_dict(infoCandidato, orient='index'))
 
 for nome in nomes:
     separado = nome.lower().split(' ')
@@ -54,3 +60,4 @@ for nome in nomes:
         st.button(nome, on_click=getInfo, args=nome)
     elif separado[0] + separado[1] == inputNome:
         st.button(nome, on_click=getInfo, args=nome)
+    
