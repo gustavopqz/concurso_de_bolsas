@@ -6,8 +6,6 @@ st.title('Concurso de bolsas 2023.1')
 
 df = pd.read_excel('CDB UNIFAN 2023.1.xlsx')
 
-# st.write(df)
-
 inputNome = st.text_input('Digite o nome do candidato:', placeholder='1° nome || 1° e 2° nome || Nome completo || CPF').replace(' ','').lower()
 
 nomes = df['Nome candidato']
