@@ -2,9 +2,9 @@ import streamlit as st
 import pandas as pd
 import random
 
-st.title('Concurso de bolsas 2023.1')
+df = pd.read_excel('CDB AMBOS 2023.1.xlsx')
 
-df = pd.read_excel('CDB UNIFAN 2023.1.xlsx')
+st.title('Concurso de bolsas GRUPO NOBRE 2023.1!')
 
 inputNome = st.text_input('Digite o nome do candidato:', placeholder='1° nome || 1° e 2° nome || Nome completo || CPF').replace(' ','').lower()
 
@@ -25,18 +25,27 @@ def getInfo(*args):
 
     nomeCandidato = info(candidato['Nome candidato'])
     cpf = str(info(candidato['CPF'])).replace('.','')
-    if len(cpf) > 11:
-        st.write(cpf)
-        cpf = cpf.rstrip(cpf[-1])
-    cpf = f'{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}'
+    novoCPF = cpf.replace('.','')
+    if len(novoCPF) < 11:
+        novoCPF += '0'
+    elif len(novoCPF) > 11:
+        novoCPF = novoCPF.rstrip(novoCPF[-1])
+        if len(novoCPF) == 9:
+            novoCPF += '00'
+        elif len(novoCPF) == 10:
+            novoCPF += '0'
+    novoCPF = f'{novoCPF[:3]}.{novoCPF[3:6]}.{novoCPF[6:9]}-{novoCPF[9:]}'
     curso = info(candidato['CURSO'])
     modalidade = info(candidato['MODALIDADE'])
     nota = info(candidato['Soma de Nota'])
-    colocacao = info(candidato['COLOCAÇÃO'])
+    colocacao = info(candidato['COLOCAÇÃO']) or 'Sem colocação.'
     status = info(candidato['STATUS'])
     bolsa = info(candidato['% BOLSA'])
     if bolsa < 1:
         bolsa = str(bolsa)[2:] + '0%'
+    else:
+        bolsa = '100%'
+    instituicao = info(candidato['IES'])
  
     infoCandidato = {
         'Nome do candidato': [nomeCandidato],
@@ -46,10 +55,15 @@ def getInfo(*args):
         'NOTA': [nota],
         'COLOCACAO': [colocacao],
         'STATUS': [status],
-        'BOLSA': [bolsa]
+        'BOLSA': [bolsa],
+        'INSTITUIÇÃO': [instituicao]
     }
+    if instituicao == 'UNIFAN':
+        st.image('logo-unifan.png', width=250)
+    elif instituicao == 'UNEF':
+        st.image('logo-unef.png', width=250)
     st.title(nomeCandidato)
-    st.subheader(f'CPF: {cpf}')
+    st.subheader(f'CPF: {novoCPF}')
     if status == 'APROVADA':
         st.success(f'Aprovado em {curso} - {modalidade} com {bolsa}!')
     else:
