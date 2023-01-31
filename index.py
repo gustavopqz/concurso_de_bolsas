@@ -87,10 +87,10 @@ for cpf in cpfs:
     novoCPF = stringCPF.replace('.','')
     if len(novoCPF) > 11:
         novoCPF = novoCPF.rstrip(novoCPF[-1])
-    if len(novoCPF) == 9:
-        novoCPF += '00'
+    elif len(novoCPF) == 9:
+        novoCPF = f'00{novoCPF}'
     elif len(novoCPF) == 10:
-        novoCPF += '0'
+        novoCPF = f'0{novoCPF}'
     
     novoInput = inputNome.replace('.','').replace('-','')
     nome = df.loc[df['CPF'] == cpf]
