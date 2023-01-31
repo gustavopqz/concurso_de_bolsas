@@ -4,10 +4,10 @@ import pandas as pd
 import random
 
 #LEITURA DO ARQUIVO EXCEL
-df = pd.read_excel('CDB AMBOS 2023.1.xlsx')
+df = pd.read_excel('CDB UNIFAN 2023.1.xlsx')
 
 #TÍTULO DA PÁGINA
-st.title('Concurso de bolsas GRUPO NOBRE 2023.1!')
+st.title('Concurso de bolsas UNIFAN 2023.1!')
 
 #INPUT NOME/CPF
 inputNome = st.text_input('Digite o nome do candidato:', placeholder='1° nome || 1° e 2° nome || Nome completo || CPF').replace(' ','').lower()
@@ -57,7 +57,10 @@ def getInfo(*args):
     #BOLSA
     bolsa = info(candidato['% BOLSA'])
     if bolsa < 1:
-        bolsa = str(bolsa)[2:] + '0%'
+        if bolsa == 0.35:
+            bolsa = str(bolsa)[2:] + '%'
+        else:
+            bolsa = str(bolsa)[2:] + '0%'
     else:
         bolsa = '100%'
     instituicao = info(candidato['IES'])
