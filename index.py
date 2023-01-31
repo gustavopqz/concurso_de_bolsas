@@ -26,14 +26,12 @@ def getInfo(*args):
     nomeCandidato = info(candidato['Nome candidato'])
     cpf = str(info(candidato['CPF'])).replace('.','')
     novoCPF = cpf.replace('.','')
-    if len(novoCPF) < 11:
-        novoCPF += '0'
-    elif len(novoCPF) > 11:
+    if len(novoCPF) > 11:
         novoCPF = novoCPF.rstrip(novoCPF[-1])
-        if len(novoCPF) == 9:
-            novoCPF += '00'
-        elif len(novoCPF) == 10:
-            novoCPF += '0'
+    elif len(novoCPF) == 9:
+        novoCPF = f'00{novoCPF}'
+    elif len(novoCPF) == 10:
+        novoCPF = f'0{novoCPF}'
     novoCPF = f'{novoCPF[:3]}.{novoCPF[3:6]}.{novoCPF[6:9]}-{novoCPF[9:]}'
     curso = info(candidato['CURSO'])
     modalidade = info(candidato['MODALIDADE'])
@@ -51,7 +49,7 @@ def getInfo(*args):
  
     infoCandidato = {
         'Nome do candidato': [nomeCandidato],
-        'CPF': [cpf],
+        'CPF': [novoCPF],
         'CURSO': [curso],
         'MODALIDADE': [modalidade],
         'NOTA': [nota],
@@ -64,6 +62,8 @@ def getInfo(*args):
         st.image('logo-unifan.png', width=250)
     elif instituicao == 'UNEF':
         st.image('logo-unef.png', width=250)
+
+    st.write(len(cpf))
     st.title(nomeCandidato)
     st.subheader(f'CPF: {novoCPF}')
     if status == 'APROVADA':
@@ -85,9 +85,7 @@ for nome in nomes:
 for cpf in cpfs:
     stringCPF = str(cpf)
     novoCPF = stringCPF.replace('.','')
-    if len(novoCPF) < 11:
-        novoCPF += '0'
-    elif len(novoCPF) > 11:
+    if len(novoCPF) > 11:
         novoCPF = novoCPF.rstrip(novoCPF[-1])
     if len(novoCPF) == 9:
         novoCPF += '00'
