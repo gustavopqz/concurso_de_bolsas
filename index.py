@@ -38,7 +38,9 @@ def getInfo(*args):
     curso = info(candidato['CURSO'])
     modalidade = info(candidato['MODALIDADE'])
     nota = info(candidato['Soma de Nota'])
-    colocacao = info(candidato['COLOCAÇÃO']) or 'Sem colocação.'
+    colocacao = info(candidato['COLOCAÇÃO'])
+    if str(colocacao) == 'nan':
+        colocacao = 'Sem colocação'
     status = info(candidato['STATUS'])
     bolsa = info(candidato['% BOLSA'])
     if bolsa < 1:
