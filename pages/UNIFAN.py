@@ -33,8 +33,8 @@ def getInfo(*args):
     #NOME
     nomeCandidato = info(candidato['Nome candidato'])
     #CPF
-    cpf = str(info(candidato['CPF'])).replace('.','')
-    novoCPF = cpf.replace('.','')
+    cpf = str(info(candidato['CPF'])).split('.')
+    novoCPF = cpf[0]
     if len(novoCPF) > 11:
         novoCPF = novoCPF.rstrip(novoCPF[-1])
     elif len(novoCPF) == 9:
@@ -110,7 +110,7 @@ for nome in nomes:
 
 for cpf in cpfs:
     stringCPF = str(cpf)
-    novoCPF = stringCPF.replace('.','')
+    novoCPF = stringCPF.split('.')[0]
     if len(novoCPF) > 11:
         novoCPF = novoCPF.rstrip(novoCPF[-1])
     elif len(novoCPF) == 9:
