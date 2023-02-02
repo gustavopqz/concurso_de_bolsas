@@ -4,7 +4,7 @@ import pandas as pd
 import random
 
 #LEITURA DO ARQUIVO EXCEL
-df = pd.read_excel('exemplo.xlsx')
+df = pd.read_excel('CDB UNEF 2023.1.xlsx')
 
 #TÍTULO DA PÁGINA
 st.title('Concurso de bolsas UNEF 2023.1!')
@@ -61,9 +61,12 @@ def getInfo(*args):
             bolsa = str(bolsa)[2:] + '%'
         else:
             bolsa = str(bolsa)[2:] + '0%'
-    else:
+    elif bolsa == 1:
         bolsa = '100%'
+    if status == 'REPROVADA':
+        bolsa = '0%'
     instituicao = info(candidato['IES'])
+    
     
     #DICIONÁRIO COM INFORMAÇÕES COLETADAS
     infoCandidato = {
