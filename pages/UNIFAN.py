@@ -61,8 +61,10 @@ def getInfo(*args):
             bolsa = str(bolsa)[2:] + '%'
         else:
             bolsa = str(bolsa)[2:] + '0%'
-    else:
+    elif bolsa == 1:
         bolsa = '100%'
+    if status == 'REPROVADA':
+        bolsa = '0%'
     instituicao = info(candidato['IES'])
     
     #DICIONÁRIO COM INFORMAÇÕES COLETADAS
