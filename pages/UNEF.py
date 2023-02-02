@@ -4,7 +4,7 @@ import pandas as pd
 import random
 
 #LEITURA DO ARQUIVO EXCEL
-df = pd.read_excel('CDB UNEF 2023.1.xlsx')
+df = pd.read_excel('exemplo.xlsx')
 
 #TÍTULO DA PÁGINA
 st.title('Concurso de bolsas UNEF 2023.1!')
